@@ -2,7 +2,7 @@
 
 Following class is a memory usage monitor for PHP scripts.
 It registers memory usage every N low-level tickable statements
-executed by the parser within the declare block.
+executed by the parser after the declare statement.
 
 The result is returned in a fancy graph using GD library.
 
@@ -20,7 +20,7 @@ The result is returned in a fancy graph using GD library.
 require('profiler.php');
 
 $profiler = new profiler;
-declare(ticks = 30000);
+declare(ticks = 1);
 
 // monitor started
 // insert your code here
@@ -28,12 +28,15 @@ declare(ticks = 30000);
 $profiler->chart();
 ```
 
-
 You can see the example usage in example.php file.
 
-## Adjusting tick directive
+## Adjusting ticks directive
 
 You have to decide how often monitor will gather data for profiling.
-Average setting is about 30000 ticks for scripts with medium execution time.
-You have to remember that if you set the value too low it will heavily
-affect the execution time.
+
+Setting ticks value to 1 means that monitor will register memory usage
+after every statement in your script.
+However remember that if your script is very complex setting this value too low 
+will heavily affect the execution time and you should increase it.
+
+Average setting is about 10 ticks for scripts with medium complexity.

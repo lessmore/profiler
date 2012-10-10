@@ -15,6 +15,7 @@
 			$this->height += $this->margintop + $this->marginbottom;
 			$this->title = 'Memory usage of '. $_SERVER['SCRIPT_NAME'];
 			register_tick_function(array(&$this, 'tick'));
+			file_put_contents('load', null);
 		}
 
 		function tick() {
@@ -39,8 +40,6 @@
 			imagestring($image, 5, ($this->width - imagefontwidth(5) * strlen($this->title)) / 2, (-imagefontheight(5)  + $this->margintop) / 2, $this->title, $black);
 
 			$xmax = count($load);
-			if ($xmax < $this->width - $this->marginleft - $this->marginright) die('Insufficient data to draw a chart. Please lower ticks directive.');
-
 			$ymin = min($load);
 			$ymax = max($load) - $ymin;
 
@@ -52,7 +51,7 @@
 
 			ob_start();
 			imagepng($image);
-			print '<img src="data:image/png;base64,'.base64_encode(ob_get_clean()).'">';
+			print '<br><img src="data:image/png;base64,'.base64_encode(ob_get_clean()).'">';
 
 			imagedestroy($image);
 			unlink('load');
