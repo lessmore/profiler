@@ -6,7 +6,20 @@ executed by the parser after the declare statement.
 
 The result is returned in a fancy graph using GD library.
 
-![Alt text](https://raw.github.com/kampaw/profiler/master/example.png)
+![Alt text](http://cloud.github.com/downloads/kampaw/profiler/example.png)
+
+## Installation
+
+In console type:
+
+```bash
+wget https://github.com/kampaw/profiler/zipball/master -O profiler.zip
+mv kampaw-profiler* profiler
+chown :www-data profiler
+chmod 775 profiler
+```
+Now class is ready to use.
+Direcotory containing profiler files must have read/write/execute access rights.
 
 ## Usage
 
