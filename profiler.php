@@ -43,15 +43,27 @@
 			$ymin = min($load);
 			$ymax = max($load) - $ymin;
 
-			foreach ($load as $key => $value) {
-				$x = (($this->width - $this->marginleft - $this->marginright) * $key) / $xmax;
-				$y = (($this->height - $this->margintop - $this->marginbottom) * ($value - $ymin)) / $ymax;
-				imageline($image, $x + $this->marginleft, $this->height - $this->marginbottom, $x + $this->marginleft, $this->height - $y - $this->marginbottom, $black);
+			for (reset($load); true; null) { 
+				$start['x'] = (($this->width - $this->marginleft - $this->marginright) * key($load)) / $xmax;
+				$start['y'] = (($this->height - $this->margintop - $this->marginbottom) * (current($load) - $ymin)) / $ymax;
+
+				next($load);
+
+				if (current($load)) {
+					$end['x'] = (($this->width - $this->marginleft - $this->marginright) * key($load)) / $xmax;
+					$end['y'] = (($this->height - $this->margintop - $this->marginbottom) * (current($load) - $ymin)) / $ymax;
+
+					imageline($image, 
+						$start['x'] + $this->marginleft, $this->height - $start['y'] - $this->marginbottom, 
+						$end['x'] + $this->marginleft, $this->height - $end['y'] - $this->marginbottom, 
+						$black
+					);
+				} else break;
 			}
 
 			ob_start();
 			imagepng($image);
-			print '<br><img src="data:image/png;base64,'.base64_encode(ob_get_clean()).'">';
+			print '<img src="data:image/png;base64,'.base64_encode(ob_get_clean()).'">';
 
 			imagedestroy($image);
 			unlink('load');
