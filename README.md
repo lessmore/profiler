@@ -14,12 +14,13 @@ In console type:
 
 ```bash
 wget https://github.com/kampaw/profiler/zipball/master -O profiler.zip
+unzip profiler.zip
 mv kampaw-profiler* profiler
 chown :www-data profiler
 chmod 775 profiler
 ```
 Now class is ready to use.
-Direcotory containing profiler files must have read/write/execute access rights.
+Directory containing profiler files must have read/write/execute access rights.
 
 ## Usage
 
